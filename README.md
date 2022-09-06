@@ -1553,10 +1553,12 @@ On the other hand, planning around BASE limitations can sometimes be a major dis
 
 # CAP Theorem
 *Video*: [https://youtu.be/8UryASGBiR4](https://youtu.be/8UryASGBiR4)
+
+
 CAP theorem states that a distributed system can deliver only two of the three desired characteristics Consistency, Availability, and Partition tolerance (CAP).
-
+ <p align="center">
 ![cap](https://raw.githubusercontent.com/SamirPaulb/assets/main/cap-theorem-key-65.png)
-
+ </p>
 
 ### Consistency
 
@@ -1593,8 +1595,11 @@ When a distributed system encounters a partition, it means that there’s a **br
 
 ### CAP theorem NoSQL databases
 NoSQL databases can be classified based on whether they support high availability or high consistency.
-NoSQL databases are great for distributed networks. They allow for **horizontal scaling**, and they can quickly scale across multiple nodes. When deciding which NoSQL database to use, it’s important to keep the CAP theorem in mind. NoSQL databases can be classified based on the two CAP features they support:
+NoSQL databases are great for distributed networks. They allow for **horizontal scaling**, and they can quickly scale across multiple nodes. When deciding which NoSQL database to use, it’s important to keep the CAP theorem in mind. NoSQL databases can be classified based on the two CAP features they support.
+
+<p align="center">
 ![cap-theorem](https://raw.githubusercontent.com/SamirPaulb/assets/main/cap_theorem-system-design-samirpaul1.jpeg)
+ </p>
 
 
 ## Consistency-Availability Tradeoff
