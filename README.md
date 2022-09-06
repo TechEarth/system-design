@@ -1552,46 +1552,80 @@ Given BASE's loose consistency, developers need to be more knowledgeable and rig
 On the other hand, planning around BASE limitations can sometimes be a major disadvantage when compared to the simplicity of ACID transactions. A fully ACID database is the perfect fit for use cases where data reliability and consistency are essential.
 
 # CAP Theorem
-
+*Video*: [https://youtu.be/8UryASGBiR4](https://youtu.be/8UryASGBiR4)
 CAP theorem states that a distributed system can deliver only two of the three desired characteristics Consistency, Availability, and Partition tolerance (CAP).
 
-![cap-theorem](https://raw.githubusercontent.com/karanpratapsingh/portfolio/master/public/static/courses/system-design/chapter-II/cap-theorem/cap-theorem.png)
+![cap](https://raw.githubusercontent.com/SamirPaulb/assets/main/cap-theorem-key-65.png)
 
-Let's take a detailed look at the three distributed system characteristics to which the CAP theorem refers.
 
 ### Consistency
 
-Consistency means that all clients see the same data at the same time, no matter which node they connect to. For this to happen, whenever data is written to one node, it must be instantly forwarded or replicated across all the nodes in the system before the write is deemed "successful".
+In a consistent system, **all nodes see the same data** simultaneously. If we perform a read operation on a consistent system, it should return the value of the most recent write operation. The read should cause all nodes to return the same data. All users see the same data at the same time, regardless of the node they connect to. When data is written to a single node, it is then replicated across the other nodes in the system. For this to happen, whenever data is written to one node, it must be instantly forwarded or replicated across all the nodes in the system before the write is deemed "successful".
+
+Financial data is a good example. When a user logs in to their banking institution, they do not want to see an error that no data is returned, or that the value is higher or lower than it actually is. Banking apps should return the exact value of a user’s account information. In this case, banks would rely on consistent databases.
+
+Examples of a consistent database include:
+- Bank account balances
+- Text messages
+
+Database options for consistency:
+- MongoDB
+- Redis
+- HBase
+
+
 
 ### Availability
 
-Availability means that any client making a request for data gets a response, even if one or more nodes are down.
+When availability is present in a distributed system, it means that the **system remains operational all of the time**. Every request will get a response regardless of the individual state of the nodes. This means that the system will operate even if there are multiple nodes down. Unlike a consistent system, there’s **no guarantee that the response will be the most recent write operation**.
+
+An example of having a highly available database can be seen in e-commerce businesses. Online stores want to make their store and the functions of the shopping cart available 24/7 so shoppers can make purchases exactly when they need.
+
+Database options for availability:
+- Cassandra
+- DynamoDB
+- Cosmos DB
+
 
 ### Partition tolerance
 
-Partition tolerance means the system continues to work despite message loss or partial failure. A system that is partition-tolerant can sustain any amount of network failure that doesn't result in a failure of the entire network. Data is sufficiently replicated across combinations of nodes and networks to keep the system up through intermittent outages.
+When a distributed system encounters a partition, it means that there’s a **break in communication between nodes**. If a system is partition-tolerant, the system does not fail, regardless of whether messages are dropped or delayed between nodes within the system. To have partition tolerance, the system must replicate records across combinations of nodes and networks.
+
+### CAP theorem NoSQL databases
+NoSQL databases can be classified based on whether they support high availability or high consistency.
+NoSQL databases are great for distributed networks. They allow for **horizontal scaling**, and they can quickly scale across multiple nodes. When deciding which NoSQL database to use, it’s important to keep the CAP theorem in mind. NoSQL databases can be classified based on the two CAP features they support:
+![cap-theorem](https://raw.githubusercontent.com/SamirPaulb/assets/main/cap_theorem-system-design-samirpaul1.jpeg)
+
 
 ## Consistency-Availability Tradeoff
 
 We live in a physical world and can't guarantee the stability of a network, so distributed databases must choose Partition Tolerance (P). This implies a tradeoff between Consistency (C) and Availability (A).
 
 ### CA database
-
+**Relational databases**, such as PostgreSQL, allow for consistency and availability if the systems are **vertically scale** on a **single machine**, we can avoid fault tolerance.
 A CA database delivers consistency and availability across all nodes. It can't do this if there is a partition between any two nodes in the system, and therefore can't deliver fault tolerance.
 
 **Example**: [PostgreSQL](https://www.postgresql.org), [MariaDB](https://mariadb.org).
 
 ### CP database
 
-A CP database delivers consistency and partition tolerance at the expense of availability. When a partition occurs between any two nodes, the system has to shut down the non-consistent node until the partition is resolved.
-
+CP databases enable consistency and partition tolerance, but not availability. When a partition occurs, the system has to **turn off inconsistent nodes until the partition can be fixed**. That's why they are not 100% available. 
+MongoDB is an example of a CP database. It’s a NoSQL database management system (DBMS) that uses documents for data storage. It’s considered schema-less, which means that it doesn’t require a defined database schema. It’s commonly used in big data and applications running in different locations. The CP system is structured so that there’s only one primary node that receives all of the write requests in a given replica set. Secondary nodes replicate the data in the primary nodes, so if the primary node fails, a secondary node can stand-in.
 **Example**: [MongoDB](https://www.mongodb.com), [Apache HBase](https://hbase.apache.org).
+
 
 ### AP database
 
-An AP database delivers availability and partition tolerance at the expense of consistency. When a partition occurs, all nodes remain available but those at the wrong end of a partition might return an older version of data than others. When the partition is resolved, the AP databases typically re-syncs the nodes to repair all inconsistencies in the system.
+AP databases enable availability and partition tolerance, but not consistency. In the event of a partition, all nodes are available, but they’re not all updated. For example, if a user tries to access data from a bad node, they **won’t receive the most up-to-date version of the data**. When the partition is eventually resolved, most AP databases will sync the nodes to ensure consistency across them. Apache Cassandra is an example of an AP database. It’s a NoSQL database with no primary node, meaning that all of the nodes remain available. Cassandra allows for eventual consistency because users can resync their data right after a partition is resolved.
 
 **Example**: [Apache Cassandra](https://cassandra.apache.org), [CouchDB](https://couchdb.apache.org).
+
+
+### CAP theorem and microservices
+Microservices are defined as loosely coupled services that can be independently developed, deployed, and maintained. They include their own stack, database, and database model, and communicate with each other through a network. Microservices have become especially popular in **hybrid cloud and [multi-cloud](https://www.educative.io/blog/what-is-multi-cloud) environments**, and they are also widely used in on-premises data centers. If you want to create a microservices application, you can use the CAP theorem to help you determine a database that will best fit your needs.
+
+
+
 
 # PACELC Theorem
 
