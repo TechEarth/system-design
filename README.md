@@ -1582,7 +1582,9 @@ Database options for consistency:
 
 When availability is present in a distributed system, it means that the **system remains operational all of the time**. Every request will get a response regardless of the individual state of the nodes. This means that the system will operate even if there are multiple nodes down. Unlike a consistent system, there’s **no guarantee that the response will be the most recent write operation**.
 
-An example of having a highly available database can be seen in e-commerce businesses. Online stores want to make their store and the functions of the shopping cart available 24/7 so shoppers can make purchases exactly when they need.
+Example of a highly available database: 
+- On **YouTube** and **social media** like Facebook and Instagram, we can ignore consistency in views or likes count but the **availability of videos and posts is essential**. 
+- In **e-commerce businesses**. Online stores want to make their store and the functions of the shopping cart available 24/7 so shoppers can make purchases exactly when they need.
 
 Database options for availability:
 - Cassandra
