@@ -1,4 +1,3 @@
-baseurl: '/system-design'
 
 plugins:
   - jekyll-seo-tag
